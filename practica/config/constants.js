@@ -13,6 +13,8 @@ module.exports = {
         BAD_REQUEST: 'Required fields missing'
     },
     serviceStatus: {
-        USER_CREATED_SUCCESSFULLY: 'User created successfully'
+        USER_CREATED_SUCCESSFULLY: 'User created successfully',
+        MEDIA_CREATED_SUCCESSFULLY: 'Media created successfully',
+        CAPITOL_CREATED_SUCCESSFULLY: 'Capitol created successfully'
     }
 }

@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 crudRepository.createConnection();
 
 app.use('/api/v1/user', require('./routes/userRoutes'));
+app.use('/api/v1/media', require('./routes/mediaRoutes'));
+app.use('/api/v1/capitol', require('./routes/capitolRoutes'));
 
 /*
 app.post('/', function (req, res) {
@@ -23,7 +25,7 @@ app.post('/', function (req, res) {
             res.send(`error: ${err}`);
         } else {
             res.send(`Success: ${req.query.id} // ${req.body.name}`);
-       }
+        }
     });
 });
 */

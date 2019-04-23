@@ -5,8 +5,8 @@ const userSchema = mongoose.Schema({
     nom: String,
     password: String,
     direccion: String,
-    cuenta: Number,
-    admin: Boolean
+    n_cuenta: Number,
+    tipus: String
 
 })
 
