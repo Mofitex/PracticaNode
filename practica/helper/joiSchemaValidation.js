@@ -2,10 +2,14 @@ const Joi = require('joi')
 const constants = require('../config/constants')
 let responseObj = {}
 
-module.exports.validateBody = (schema) => {
+module.exports.validate = (schema, validation) => {
     // Ha de retornar una funció middleware, per tant té req, res, next.
     return (req, res, next) => {
-        const result = Joi.validate(req.body, schema);
+        let objToValidate = {};
+        if (validation === constants.requestObj.BODY) objToValidate = req.body;
+        else if (validation === constants.requestObj.QUERY_PARAMS) objToValidate = req.query;
+        else if (validation === constants.requestObj.PATH_PARAMS) objToValidate = req.params;
+        const result = Joi.validate(objToValidate, schema);
         if(result.error) {
             //const errorDetail = result.error.details;
             const errorDetail = result.error.details.map((value) => {

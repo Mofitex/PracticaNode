@@ -23,3 +23,46 @@ module.exports.createCapitol = async (req, res, next) => {
     }
     return res.status(responseObj.status).send(responseObj);
 }
+
+module.exports.getCapitolList = async (req, res, next) => {
+    const responseObj = constants.responseObj;
+    try {
+        const data = {
+            skip: req.query.skip,
+            limit: req.query.limit
+        };
+        /*const responseFromService = {
+            status: constants.serviceStatus.CAPITOL_LIST_FETCHED_SUCCESSFULLY
+        };*/
+        const responseFromService = await capitolService.getCapitolList(data);
+        if (responseFromService.status === constants.serviceStatus.CAPITOL_LIST_FETCHED_SUCCESSFULLY) {
+            responseObj.status = 200;
+            responseObj.message = constants.serviceStatus.CAPITOL_LIST_FETCHED_SUCCESSFULLY;
+            responseObj.body = responseFromService.body;
+        }
+    } catch(err) {
+        console.log('ERROR-Controller-getCapitolList: ', err)
+    }
+    return res.status(responseObj.status).send(responseObj);
+}
+
+module.exports.getCapitolDetails = async (req, res, next) => {
+    const responseObj = constants.responseObj;
+    try {
+        const data = {
+            capitolId: req.params.capitolId,
+        }
+        /*const responseFromService = {
+            status: constants.serviceStatus.CAPITOL_FETCHED_SUCCESSFULLY
+        };*/
+        const responseFromService = await capitolService.getCapitolDetails(data);
+        if (responseFromService.status === constants.serviceStatus.CAPITOL_FETCHED_SUCCESSFULLY) {
+            responseObj.status = 200;
+            responseObj.message = constants.serviceStatus.CAPITOL_FETCHED_SUCCESSFULLY;
+            responseObj.body = responseFromService.body;
+        }
+    } catch(err) {
+        console.log('ERROR-Controller-getCapitolDetails: ', err);
+    }
+    return res.status(responseObj.status).send(responseObj);
+}
