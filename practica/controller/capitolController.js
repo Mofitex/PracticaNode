@@ -66,3 +66,50 @@ module.exports.getCapitolDetails = async (req, res, next) => {
     }
     return res.status(responseObj.status).send(responseObj);
 }
+
+module.exports.updateCapitol =  async (req, res, next) => {
+    const responseObj = constants.responseObj;
+    try {
+        const data = req.body;
+        data.capitolId = req.params.capitolId;
+        // call the service with this data
+        /*const responseFromService = {
+            status: constants.serviceStatus.CAPITOL_UPDATED_SUCCESSFULLY,
+            message: 'okay',
+            body: 'body'
+        };*/
+        const responseFromService = await capitolService.updateCapitol(data);
+        if (responseFromService.status === constants.serviceStatus.CAPITOL_UPDATED_SUCCESSFULLY) {
+            responseObj.status = 200;
+            responseObj.message = constants.serviceStatus.CAPITOL_UPDATED_SUCCESSFULLY;
+            responseObj.body = responseFromService.body;
+        }
+    } catch(err) {
+        console.log('ERROR-Controller-updateCapitol: ', err);
+    }
+    return res.status(responseObj.status).send(responseObj);
+}
+
+module.exports.deleteCapitol =  async (req, res, next) => {
+    const responseObj = constants.responseObj;
+    try {
+        const data = {
+            capitolId: req.params.capitolId
+        };
+        // call the service with this data
+        /*const responseFromService = {
+            status: constants.serviceStatus.CAPITOL_DELETED_SUCCESSFULLY,
+            message: 'okay',
+            body: 'body'
+        };*/
+        const responseFromService = await capitolService.deleteCapitol(data);
+        if (responseFromService.status === constants.serviceStatus.CAPITOL_DELETED_SUCCESSFULLY) {
+            responseObj.status = 204;
+            responseObj.message = constants.serviceStatus.CAPITOL_DELETED_SUCCESSFULLY;
+            responseObj.body = responseFromService.body;
+        }
+    } catch(err) {
+        console.log('ERROR-Controller-deleteCapitol: ', err);
+    }
+    return res.status(responseObj.status).send(responseObj);
+}
